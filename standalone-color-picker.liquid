@@ -1,0 +1,25 @@
+             {%- when 'variant_pickers' -%}
+{% if product.metafields.custom.variantpickers.value != blank %}
+  <div class="relatedColor">
+        <p>  {{ block.settings.varpick_title }}</p>
+    <div class="color-container" id="related_colors">
+
+      <ul class="rel-color-ul-list">
+        {% assign related_colors =  product.metafields.custom.variantpickers.value %}
+        {% for product in related_colors %}
+          {% assign custom_image = product.metafields.custom.customimage_relcolor %}
+          {% if custom_image != blank %}
+            {% assign image = custom_image %}
+          {% else %}
+            {% assign image = product.images[1] %} {% comment %}{# Change this to 1 to get the second image #}{% endcomment %}
+          {% endif %}
+          <li class="rel-color-list">
+            <a href="{{ product.url }}" class="product-thumbnail">
+              <img src="{{ image | img_url: 'master' }}" alt="{{ product.title }}" width="100" height="100">
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endif %}
